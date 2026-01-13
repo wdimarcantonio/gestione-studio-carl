@@ -1,4 +1,4 @@
-# Dietitian Management System - PRD
+# Sistema di Gestione Dietistica - Studio Carla Rapagnà - PRD
 
 A secure, multi-tenant web application for dietitians to manage patient data, measurements, communications, and documents with role-based access control.
 

@@ -27,7 +27,7 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-secondary/5 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-semibold tracking-tight">NutriTrack</CardTitle>
+          <CardTitle className="text-3xl font-semibold tracking-tight">Studio Carla Rapagnà</CardTitle>
           <CardDescription>Accedi al tuo account</CardDescription>
         </CardHeader>
         <CardContent>

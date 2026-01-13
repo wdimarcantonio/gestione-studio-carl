@@ -54,7 +54,7 @@ export function Layout({ children }: LayoutProps) {
   const NavigationContent = () => (
     <>
       <div className="p-6 border-b border-border">
-        <h1 className="text-2xl font-semibold text-primary">NutriTrack</h1>
+        <h1 className="text-2xl font-semibold text-primary">Studio Carla Rapagnà</h1>
         <p className="text-sm text-muted-foreground mt-1">
           {isAdmin ? 'Portale Dietista' : 'Portale Paziente'}
         </p>
