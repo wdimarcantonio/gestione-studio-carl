@@ -1,5 +1,5 @@
 import { Alert, AlertTitle, AlertDescription } from "./components/ui/alert"
-
+import { Button } from "./components/ui/button"
 
 interface ErrorFallbackProps {
   error: Error
@@ -10,18 +10,16 @@ export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps)
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-background">
       <div className="max-w-md w-full space-y-4">
-        >
+        <Alert variant="destructive">
+          <AlertTitle>Something went wrong</AlertTitle>
+          <AlertDescription className="mt-2">
+            {error.message}
+          </AlertDescription>
+        </Alert>
+        <Button onClick={resetErrorBoundary} className="w-full">
+          Try again
         </Button>
-    </div>
-}
-
-
-
-
-
-
-
-
       </div>
-
+    </div>
   )
+}
