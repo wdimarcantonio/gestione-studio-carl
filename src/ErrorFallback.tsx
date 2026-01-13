@@ -1,9 +1,9 @@
-import { Alert, AlertTitle, AlertDescription } from "./components/ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "./components/ui/alert"
+import { Button } from "./components/ui/button"
 
-
-}
-export function
-    <div className="min-h-screen 
+interface ErrorFallbackProps {
+  error: Error
+  resetErrorBoundary: () => void
 }
 
 export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
@@ -14,16 +14,15 @@ export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps)
           <AlertTitle>Something went wrong</AlertTitle>
           <AlertDescription>
             {error.message || "An unexpected error occurred"}
-        </Button>
+          </AlertDescription>
         </Alert>
-  );
         <Button 
-
+          onClick={resetErrorBoundary}
           className="w-full"
-
+        >
           Try Again
-
-
-
-
-
+        </Button>
+      </div>
+    </div>
+  )
+}
