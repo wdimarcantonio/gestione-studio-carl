@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Plus, ChatCircle, Envelope, WhatsappLogo } from '@phosphor-icons/react'
+import { Plus, ChatCircle, Envelope, WhatsappLogo, MagnifyingGlass } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
 export function AdminMessagesPage() {
@@ -32,6 +32,7 @@ export function AdminMessagesPage() {
   const { user } = useAuth()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [activeChannel, setActiveChannel] = useState<MessageChannel | 'ALL'>('ALL')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const [formData, setFormData] = useState({
     patientId: '',
@@ -77,6 +78,16 @@ export function AdminMessagesPage() {
 
   const filteredMessages = (messages || [])
     .filter((msg) => activeChannel === 'ALL' || msg.channel === activeChannel)
+    .filter((msg) => {
+      if (!searchQuery) return true
+      const query = searchQuery.toLowerCase()
+      return (
+        msg.body.toLowerCase().includes(query) ||
+        msg.senderName.toLowerCase().includes(query) ||
+        msg.recipientName.toLowerCase().includes(query) ||
+        (msg.subject && msg.subject.toLowerCase().includes(query))
+      )
+    })
     .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
 
   const getChannelIcon = (channel: MessageChannel) => {
@@ -193,7 +204,22 @@ export function AdminMessagesPage() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value={activeChannel} className="mt-6">
+        <div className="mt-6 mb-4">
+          <div className="relative max-w-md">
+            <MagnifyingGlass
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+            <Input
+              placeholder="Search messages..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+        </div>
+
+        <TabsContent value={activeChannel}>
           <Card>
             <CardHeader>
               <CardTitle>Message History ({filteredMessages.length})</CardTitle>

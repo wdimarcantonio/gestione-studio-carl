@@ -6,6 +6,7 @@ import { Layout } from '@/components/layout/Layout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { AdminDashboard } from '@/components/admin/AdminDashboard'
 import { PatientsPage } from '@/components/admin/PatientsPage'
+import { PatientDetailPage } from '@/components/admin/PatientDetailPage'
 import { MeasurementsPage } from '@/components/admin/MeasurementsPage'
 import { AdminMessagesPage } from '@/components/admin/AdminMessagesPage'
 import { AdminDocumentsPage } from '@/components/admin/AdminDocumentsPage'
@@ -51,6 +52,16 @@ function App() {
               <ProtectedRoute allowedRoles={['ADMIN']}>
                 <Layout>
                   <PatientsPage />
+                </Layout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/patients/:patientId"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <Layout>
+                  <PatientDetailPage />
                 </Layout>
               </ProtectedRoute>
             }

@@ -2,7 +2,8 @@ import { useKV } from '@github/spark/hooks'
 import { useAuth } from '@/lib/auth-context'
 import { Patient, Measurement, Message, Document } from '@/lib/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ChartLine, ChatCircleText, Folder, CalendarBlank } from '@phosphor-icons/react'
+import { Badge } from '@/components/ui/badge'
+import { ChartLine, ChatCircleText, Folder, TrendUp, TrendDown } from '@phosphor-icons/react'
 import {
   LineChart,
   Line,
@@ -29,6 +30,11 @@ export function PatientDashboard() {
   const myMessages = (messages || []).filter((m) => m.patientId === myPatient?.id)
   const myDocuments = (documents || []).filter((d) => d.patientId === myPatient?.id)
   const unreadMessages = myMessages.filter((m) => !m.read && m.direction === 'IN').length
+
+  const latestWeight = myMeasurements.length > 0 ? myMeasurements[myMeasurements.length - 1].weight : 0
+  const previousWeight = myMeasurements.length > 1 ? myMeasurements[myMeasurements.length - 2].weight : latestWeight
+  const weightChange = latestWeight - previousWeight
+  const weightTrend = weightChange > 0 ? 'up' : weightChange < 0 ? 'down' : 'stable'
 
   const chartData = myMeasurements.map((m) => ({
     date: new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
@@ -101,6 +107,25 @@ export function PatientDashboard() {
                 ? `${myMeasurements[myMeasurements.length - 1].weight} kg`
                 : '--'}
             </div>
+            {myMeasurements.length > 1 && (
+              <div className="flex items-center gap-2 mt-1">
+                {weightTrend === 'up' && (
+                  <>
+                    <TrendUp size={16} className="text-accent" />
+                    <p className="text-xs text-accent">+{Math.abs(weightChange).toFixed(1)} kg</p>
+                  </>
+                )}
+                {weightTrend === 'down' && (
+                  <>
+                    <TrendDown size={16} className="text-primary" />
+                    <p className="text-xs text-primary">-{Math.abs(weightChange).toFixed(1)} kg</p>
+                  </>
+                )}
+                {weightTrend === 'stable' && (
+                  <p className="text-xs text-muted-foreground">No change</p>
+                )}
+              </div>
+            )}
             <p className="text-xs text-muted-foreground mt-1">
               {myMeasurements.length > 0
                 ? new Date(myMeasurements[myMeasurements.length - 1].date).toLocaleDateString()

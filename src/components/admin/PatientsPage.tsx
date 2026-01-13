@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useKV } from '@github/spark/hooks'
 import { Patient } from '@/lib/types'
 import { useAuth } from '@/lib/auth-context'
@@ -21,12 +22,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Plus, MagnifyingGlass } from '@phosphor-icons/react'
+import { Plus, MagnifyingGlass, Eye } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 
 export function PatientsPage() {
   const [patients, setPatients] = useKV<Patient[]>('patients', [])
   const { user } = useAuth()
+  const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
   const [dialogOpen, setDialogOpen] = useState(false)
 
@@ -236,7 +238,8 @@ export function PatientsPage() {
               {filteredPatients.map((patient) => (
                 <div
                   key={patient.id}
-                  className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
+                  className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer"
+                  onClick={() => navigate(`/admin/patients/${patient.id}`)}
                 >
                   <div className="flex-1">
                     <p className="font-medium text-lg">
@@ -250,9 +253,18 @@ export function PatientsPage() {
                       )}
                     </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    Added {new Date(patient.createdAt).toLocaleDateString()}
-                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="gap-2"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      navigate(`/admin/patients/${patient.id}`)
+                    }}
+                  >
+                    <Eye size={18} />
+                    View Details
+                  </Button>
                 </div>
               ))}
             </div>
