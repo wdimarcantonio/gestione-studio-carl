@@ -22,13 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build spark-tools package
-        run: |
-          cd packages/spark-tools
-          npm install
-          npm run build
-          cd ../..
-
       - name: Build
         run: npm run build
 
