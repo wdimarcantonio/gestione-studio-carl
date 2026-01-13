@@ -164,22 +164,23 @@ Typography should balance **medical precision with approachability** - clear, le
 
 ## Technical Architecture Summary
 
-**Stack**: Angular 17+ (frontend) + NestJS (backend) + PostgreSQL (database)
+**Stack**: React 19 + TypeScript (frontend) + Spark Runtime (persistence & LLM) + Client-side routing
 
 **Key Patterns**:
-- Lazy-loaded feature modules (patient, admin, auth)
-- Service layer with facades for complex operations
-- JWT guards on routes and API endpoints
-- Data isolation at service layer (patients see only their data)
-- Repository pattern for data access
-- DTO validation on all API inputs
+- React Router for role-based navigation
+- Custom hooks for data management (useKV for persistence)
+- Context providers for auth state
+- Protected routes with role guards
+- Data isolation via user ID filtering
+- Type-safe interfaces for all entities
+- Zod validation on forms
 
 **Security**:
-- Role-based guards on all protected routes
-- Patient ID validation on every data access
-- File storage with access control
-- CORS configuration for production
-- Environment-based configuration (no hardcoded secrets)
+- Role-based route guards via React Router
+- User ID validation on every data access
+- Spark KV isolation per user
+- Client-side data filtering
+- No sensitive data in client storage
 
 ---
 
