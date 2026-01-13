@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/lib/auth-context'
+import { PatientProvider } from '@/lib/patient-context'
 import { Toaster } from '@/components/ui/sonner'
 import { LoginPage } from '@/components/auth/LoginPage'
 import { Layout } from '@/components/layout/Layout'
@@ -32,9 +33,10 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<RootRedirect />} />
-          <Route path="/login" element={<LoginPage />} />
+        <PatientProvider>
+          <Routes>
+            <Route path="/" element={<RootRedirect />} />
+            <Route path="/login" element={<LoginPage />} />
           
           <Route
             path="/admin"
@@ -127,8 +129,9 @@ function App() {
               </ProtectedRoute>
             }
           />
-        </Routes>
-        <Toaster />
+          </Routes>
+          <Toaster />
+        </PatientProvider>
       </AuthProvider>
     </BrowserRouter>
   )

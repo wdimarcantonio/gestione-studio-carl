@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Patient, Document } from '@/lib/types'
+import { useSelectedPatient } from '@/lib/patient-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,6 +27,7 @@ import { toast } from 'sonner'
 export function AdminDocumentsPage() {
   const [patients] = useKV<Patient[]>('patients', [])
   const [documents, setDocuments] = useKV<Document[]>('documents', [])
+  const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -34,6 +36,12 @@ export function AdminDocumentsPage() {
     category: 'Diet Plan',
     description: '',
   })
+
+  useEffect(() => {
+    if (selectedPatient) {
+      setFormData(prev => ({ ...prev, patientId: selectedPatient.id }))
+    }
+  }, [selectedPatient])
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -83,6 +91,10 @@ export function AdminDocumentsPage() {
     acc[doc.patientId].push(doc)
     return acc
   }, {} as Record<string, Document[]>)
+
+  const patientsToShow = selectedPatient 
+    ? (patients || []).filter(p => p.id === selectedPatient.id)
+    : (patients || [])
 
   const getFileIcon = (contentType: string) => {
     if (contentType.includes('pdf')) return <FilePdf size={20} className="text-destructive" />
@@ -186,7 +198,7 @@ export function AdminDocumentsPage() {
       </div>
 
       <div className="space-y-6">
-        {(patients || []).map((patient) => {
+        {patientsToShow.map((patient) => {
           const patientDocuments = groupedDocuments[patient.id] || []
 
           if (patientDocuments.length === 0) return null

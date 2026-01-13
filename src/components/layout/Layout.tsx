@@ -4,6 +4,7 @@ import { useAuth } from '@/lib/auth-context'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { PatientSelector } from '@/components/layout/PatientSelector'
 import {
   House,
   UsersThree,
@@ -127,9 +128,20 @@ export function Layout({ children }: LayoutProps) {
         </aside>
       )}
 
-      <main className="flex-1 overflow-auto">
-        <div className={cn('p-8', isMobile && 'pt-20')}>{children}</div>
-      </main>
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {isAdmin && (
+          <header className="border-b border-border bg-card px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <h2 className="text-lg font-semibold text-foreground">Working with:</h2>
+              <PatientSelector />
+            </div>
+          </header>
+        )}
+        
+        <main className="flex-1 overflow-auto">
+          <div className={cn('p-8', isMobile && !isAdmin && 'pt-20')}>{children}</div>
+        </main>
+      </div>
     </div>
   )
 }

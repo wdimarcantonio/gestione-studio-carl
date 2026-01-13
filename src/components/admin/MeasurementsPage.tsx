@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Patient, Measurement } from '@/lib/types'
+import { useSelectedPatient } from '@/lib/patient-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,8 +27,15 @@ import { toast } from 'sonner'
 export function MeasurementsPage() {
   const [patients] = useKV<Patient[]>('patients', [])
   const [measurements, setMeasurements] = useKV<Measurement[]>('measurements', [])
+  const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedPatientId, setSelectedPatientId] = useState('')
+
+  useEffect(() => {
+    if (selectedPatient) {
+      setSelectedPatientId(selectedPatient.id)
+    }
+  }, [selectedPatient])
 
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
@@ -76,6 +84,10 @@ export function MeasurementsPage() {
     acc[measurement.patientId].push(measurement)
     return acc
   }, {} as Record<string, Measurement[]>)
+
+  const patientsToShow = selectedPatient 
+    ? (patients || []).filter(p => p.id === selectedPatient.id)
+    : (patients || [])
 
   return (
     <div className="space-y-8">
@@ -181,7 +193,7 @@ export function MeasurementsPage() {
       </div>
 
       <div className="space-y-6">
-        {(patients || []).map((patient) => {
+        {patientsToShow.map((patient) => {
           const patientMeasurements = (groupedMeasurements[patient.id] || []).sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           )

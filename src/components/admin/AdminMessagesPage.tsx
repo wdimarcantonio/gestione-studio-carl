@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Patient, Message, MessageChannel } from '@/lib/types'
 import { useAuth } from '@/lib/auth-context'
+import { useSelectedPatient } from '@/lib/patient-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -30,6 +31,7 @@ export function AdminMessagesPage() {
   const [patients] = useKV<Patient[]>('patients', [])
   const [messages, setMessages] = useKV<Message[]>('messages', [])
   const { user } = useAuth()
+  const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [activeChannel, setActiveChannel] = useState<MessageChannel | 'ALL'>('ALL')
   const [searchQuery, setSearchQuery] = useState('')
@@ -40,6 +42,12 @@ export function AdminMessagesPage() {
     subject: '',
     body: '',
   })
+
+  useEffect(() => {
+    if (selectedPatient) {
+      setFormData(prev => ({ ...prev, patientId: selectedPatient.id }))
+    }
+  }, [selectedPatient])
 
   const handleSendMessage = () => {
     if (!formData.patientId || !formData.body) {
@@ -77,6 +85,7 @@ export function AdminMessagesPage() {
   }
 
   const filteredMessages = (messages || [])
+    .filter((msg) => selectedPatient ? msg.patientId === selectedPatient.id : true)
     .filter((msg) => activeChannel === 'ALL' || msg.channel === activeChannel)
     .filter((msg) => {
       if (!searchQuery) return true

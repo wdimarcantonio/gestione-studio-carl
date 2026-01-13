@@ -38,8 +38,15 @@ Enable dietitians (ADMIN role) to efficiently manage patient health data while p
 - **Functionality**: Record weight, fat mass, lean mass, water percentage with dates
 - **Purpose**: Track patient progress over time
 - **Trigger**: Admin selects patient and clicks "Add Measurement"
-- **Progression**: Select patient → open measurement form → input values and date → validate → save → update patient chart
-- **Success Criteria**: Measurements persist, display in charts, and are visible to both admin and respective patient
+- **Progression**: Select patient from global selector or dialog → open measurement form → input values and date → validate → save → update patient chart
+- **Success Criteria**: Measurements persist, display in charts, and are visible to both admin and respective patient; selected patient from header pre-populates in dialogs
+
+### 3.1 Global Patient Selection (ADMIN)
+- **Functionality**: Persistent patient selector in application header
+- **Purpose**: Allow admin to select a patient once and work with that patient across all pages without repetitive selection
+- **Trigger**: Admin navigates to any admin page
+- **Progression**: View patient selector in header → search/select patient → selection persists across page navigation → all admin pages filter to selected patient → clear selection to view all patients
+- **Success Criteria**: Selected patient persists in useKV storage; all admin pages (measurements, messages, documents) respect selected patient; selection survives page refresh
 
 ### 4. Unified Messaging Hub
 - **Functionality**: Send and receive messages via internal chat, email, and WhatsApp
