@@ -22,9 +22,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --workspaces
 
-      - name: Build
+      - name: Build workspace packages
+        run: npm run build --workspace=packages/spark-tools
+
+      - name: Build project
         run: npm run build
 
       - name: Upload artifact
