@@ -51,7 +51,7 @@ export function AdminMessagesPage() {
 
   const handleSendMessage = () => {
     if (!formData.patientId || !formData.body) {
-      toast.error('Please select a patient and enter a message')
+      toast.error('Seleziona un paziente e inserisci un messaggio')
       return
     }
 
@@ -74,7 +74,7 @@ export function AdminMessagesPage() {
     }
 
     setMessages((current) => [...(current || []), newMessage])
-    toast.success('Message sent successfully')
+    toast.success('Messaggio inviato con successo')
     setDialogOpen(false)
     setFormData({
       patientId: '',
@@ -114,30 +114,30 @@ export function AdminMessagesPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Messages</h1>
-          <p className="text-muted-foreground mt-2">Unified communication hub</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Messaggi</h1>
+          <p className="text-muted-foreground mt-2">Centro comunicazioni unificato</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus size={20} />
-              New Message
+              Nuovo Messaggio
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Send Message</DialogTitle>
-              <DialogDescription>Send a message to a patient</DialogDescription>
+              <DialogTitle>Invia Messaggio</DialogTitle>
+              <DialogDescription>Invia un messaggio a un paziente</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="patient">Patient *</Label>
+                <Label htmlFor="patient">Paziente *</Label>
                 <Select
                   value={formData.patientId}
                   onValueChange={(value) => setFormData({ ...formData, patientId: value })}
                 >
                   <SelectTrigger id="patient">
-                    <SelectValue placeholder="Select a patient" />
+                    <SelectValue placeholder="Seleziona un paziente" />
                   </SelectTrigger>
                   <SelectContent>
                     {(patients || []).map((patient) => (
@@ -149,7 +149,7 @@ export function AdminMessagesPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="channel">Channel *</Label>
+                <Label htmlFor="channel">Canale *</Label>
                 <Select
                   value={formData.channel}
                   onValueChange={(value: MessageChannel) =>
@@ -160,7 +160,7 @@ export function AdminMessagesPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="INTERNAL">Internal Chat</SelectItem>
+                    <SelectItem value="INTERNAL">Chat Interna</SelectItem>
                     <SelectItem value="EMAIL">Email</SelectItem>
                     <SelectItem value="WHATSAPP">WhatsApp</SelectItem>
                   </SelectContent>
@@ -168,7 +168,7 @@ export function AdminMessagesPage() {
               </div>
               {formData.channel === 'EMAIL' && (
                 <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="subject">Oggetto</Label>
                   <Input
                     id="subject"
                     value={formData.subject}
@@ -177,7 +177,7 @@ export function AdminMessagesPage() {
                 </div>
               )}
               <div className="space-y-2">
-                <Label htmlFor="body">Message *</Label>
+                <Label htmlFor="body">Messaggio *</Label>
                 <Textarea
                   id="body"
                   rows={5}
@@ -188,9 +188,9 @@ export function AdminMessagesPage() {
             </div>
             <div className="flex justify-end gap-3">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
+                Annulla
               </Button>
-              <Button onClick={handleSendMessage}>Send Message</Button>
+              <Button onClick={handleSendMessage}>Invia Messaggio</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -198,10 +198,10 @@ export function AdminMessagesPage() {
 
       <Tabs value={activeChannel} onValueChange={(v) => setActiveChannel(v as MessageChannel | 'ALL')}>
         <TabsList>
-          <TabsTrigger value="ALL">All Messages</TabsTrigger>
+          <TabsTrigger value="ALL">Tutti i Messaggi</TabsTrigger>
           <TabsTrigger value="INTERNAL" className="gap-2">
             <ChatCircle size={16} />
-            Internal
+            Interni
           </TabsTrigger>
           <TabsTrigger value="EMAIL" className="gap-2">
             <Envelope size={16} />
@@ -220,7 +220,7 @@ export function AdminMessagesPage() {
               className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
             />
             <Input
-              placeholder="Search messages..."
+              placeholder="Cerca messaggi..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -231,12 +231,12 @@ export function AdminMessagesPage() {
         <TabsContent value={activeChannel}>
           <Card>
             <CardHeader>
-              <CardTitle>Message History ({filteredMessages.length})</CardTitle>
+              <CardTitle>Cronologia Messaggi ({filteredMessages.length})</CardTitle>
             </CardHeader>
             <CardContent>
               {filteredMessages.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">No messages yet</p>
+                  <p className="text-muted-foreground">Nessun messaggio ancora</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -250,7 +250,7 @@ export function AdminMessagesPage() {
                           <div className="flex items-center gap-2 mb-2">
                             {getChannelIcon(message.channel)}
                             <span className="font-medium">
-                              {message.direction === 'OUT' ? 'To' : 'From'}: {message.recipientName}
+                              {message.direction === 'OUT' ? 'A' : 'Da'}: {message.recipientName}
                             </span>
                             <span
                               className={`text-xs px-2 py-1 rounded ${
@@ -259,7 +259,7 @@ export function AdminMessagesPage() {
                                   : 'bg-accent/10 text-accent'
                               }`}
                             >
-                              {message.direction === 'OUT' ? 'Sent' : 'Received'}
+                              {message.direction === 'OUT' ? 'Inviato' : 'Ricevuto'}
                             </span>
                           </div>
                           {message.subject && (
@@ -268,7 +268,7 @@ export function AdminMessagesPage() {
                           <p className="text-sm text-muted-foreground">{message.body}</p>
                         </div>
                         <div className="text-sm text-muted-foreground whitespace-nowrap">
-                          {new Date(message.timestamp).toLocaleString()}
+                          {new Date(message.timestamp).toLocaleString('it-IT')}
                         </div>
                       </div>
                     </div>

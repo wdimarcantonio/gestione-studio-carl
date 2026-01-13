@@ -48,7 +48,7 @@ export function PatientSelector({ className }: PatientSelectorProps) {
     return (
       <div className={cn('flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground', className)}>
         <User size={16} />
-        <span>No patients available</span>
+        <span>Nessun paziente disponibile</span>
       </div>
     )
   }
@@ -62,7 +62,7 @@ export function PatientSelector({ className }: PatientSelectorProps) {
         <SelectTrigger className="w-64 bg-card">
           <div className="flex items-center gap-2">
             <User size={16} />
-            <SelectValue placeholder="Select a patient..." />
+            <SelectValue placeholder="Seleziona un paziente..." />
           </div>
         </SelectTrigger>
         <SelectContent>
@@ -80,7 +80,7 @@ export function PatientSelector({ className }: PatientSelectorProps) {
           size="icon"
           onClick={handleClear}
           className="h-10 w-10"
-          title="Clear selection"
+          title="Cancella selezione"
         >
           <X size={20} />
         </Button>

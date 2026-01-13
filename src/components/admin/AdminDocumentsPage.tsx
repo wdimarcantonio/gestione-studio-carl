@@ -48,12 +48,12 @@ export function AdminDocumentsPage() {
     if (!file) return
 
     if (file.size > 10 * 1024 * 1024) {
-      toast.error('File size must be less than 10MB')
+      toast.error('La dimensione del file deve essere inferiore a 10MB')
       return
     }
 
     if (!formData.patientId) {
-      toast.error('Please select a patient first')
+      toast.error('Seleziona prima un paziente')
       return
     }
 
@@ -72,7 +72,7 @@ export function AdminDocumentsPage() {
       }
 
       setDocuments((current) => [...(current || []), newDocument])
-      toast.success('Document uploaded successfully')
+      toast.success('Documento caricato con successo')
       setDialogOpen(false)
       setFormData({
         patientId: '',
@@ -113,30 +113,30 @@ export function AdminDocumentsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Documents</h1>
-          <p className="text-muted-foreground mt-2">Manage patient documents and files</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Documenti</h1>
+          <p className="text-muted-foreground mt-2">Gestisci documenti e file dei pazienti</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus size={20} />
-              Upload Document
+              Carica Documento
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Upload Document</DialogTitle>
-              <DialogDescription>Upload a document for a patient</DialogDescription>
+              <DialogTitle>Carica Documento</DialogTitle>
+              <DialogDescription>Carica un documento per un paziente</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="patient">Patient *</Label>
+                <Label htmlFor="patient">Paziente *</Label>
                 <Select
                   value={formData.patientId}
                   onValueChange={(value) => setFormData({ ...formData, patientId: value })}
                 >
                   <SelectTrigger id="patient">
-                    <SelectValue placeholder="Select a patient" />
+                    <SelectValue placeholder="Seleziona un paziente" />
                   </SelectTrigger>
                   <SelectContent>
                     {(patients || []).map((patient) => (
@@ -148,16 +148,16 @@ export function AdminDocumentsPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="name">Document Name</Label>
+                <Label htmlFor="name">Nome Documento</Label>
                 <Input
                   id="name"
-                  placeholder="Leave empty to use filename"
+                  placeholder="Lascia vuoto per usare il nome del file"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">Categoria</Label>
                 <Select
                   value={formData.category}
                   onValueChange={(value) => setFormData({ ...formData, category: value })}
@@ -166,16 +166,16 @@ export function AdminDocumentsPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Diet Plan">Diet Plan</SelectItem>
-                    <SelectItem value="Lab Results">Lab Results</SelectItem>
-                    <SelectItem value="Medical Report">Medical Report</SelectItem>
-                    <SelectItem value="Educational Material">Educational Material</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
+                    <SelectItem value="Diet Plan">Piano Alimentare</SelectItem>
+                    <SelectItem value="Lab Results">Risultati Esami</SelectItem>
+                    <SelectItem value="Medical Report">Referto Medico</SelectItem>
+                    <SelectItem value="Educational Material">Materiale Educativo</SelectItem>
+                    <SelectItem value="Other">Altro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Descrizione</Label>
                 <Input
                   id="description"
                   value={formData.description}
@@ -190,7 +190,7 @@ export function AdminDocumentsPage() {
                   onChange={handleFileUpload}
                   accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
                 />
-                <p className="text-xs text-muted-foreground">Max file size: 10MB</p>
+                <p className="text-xs text-muted-foreground">Dimensione massima: 10MB</p>
               </div>
             </div>
           </DialogContent>

@@ -28,18 +28,18 @@ export function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-3xl font-semibold tracking-tight">NutriTrack</CardTitle>
-          <CardDescription>Sign in to your account</CardDescription>
+          <CardDescription>Accedi al tuo account</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="patient" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="patient" className="gap-2">
                 <UserCircle size={18} />
-                Patient
+                Paziente
               </TabsTrigger>
               <TabsTrigger value="admin" className="gap-2">
                 <Stethoscope size={18} />
-                Dietitian
+                Dietista
               </TabsTrigger>
             </TabsList>
             <TabsContent value="patient" className="space-y-4 mt-4">
@@ -48,7 +48,7 @@ export function LoginPage() {
                 <Input
                   id="patient-email"
                   type="email"
-                  placeholder="patient@example.com"
+                  placeholder="paziente@esempio.it"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -63,7 +63,7 @@ export function LoginPage() {
                 />
               </div>
               <Button className="w-full" onClick={() => handleLogin('PATIENT')}>
-                Sign In as Patient
+                Accedi come Paziente
               </Button>
             </TabsContent>
             <TabsContent value="admin" className="space-y-4 mt-4">
@@ -72,7 +72,7 @@ export function LoginPage() {
                 <Input
                   id="admin-email"
                   type="email"
-                  placeholder="dietitian@example.com"
+                  placeholder="dietista@esempio.it"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -87,7 +87,7 @@ export function LoginPage() {
                 />
               </div>
               <Button className="w-full" onClick={() => handleLogin('ADMIN')}>
-                Sign In as Dietitian
+                Accedi come Dietista
               </Button>
             </TabsContent>
           </Tabs>

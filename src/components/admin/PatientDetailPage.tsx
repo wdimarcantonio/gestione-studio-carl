@@ -33,7 +33,7 @@ export function PatientDetailPage() {
   const patientDocuments = (documents || []).filter((d) => d.patientId === patientId)
 
   const chartData = patientMeasurements.map((m) => ({
-    date: new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: new Date(m.date).toLocaleDateString('it-IT', { month: 'short', day: 'numeric' }),
     weight: m.weight,
     fatMass: m.fatMass || 0,
     leanMass: m.leanMass || 0,
@@ -45,11 +45,11 @@ export function PatientDetailPage() {
       <div className="space-y-8">
         <Button variant="ghost" onClick={() => navigate('/admin/patients')}>
           <ArrowLeft size={20} className="mr-2" />
-          Back to Patients
+          Torna ai Pazienti
         </Button>
         <Card>
           <CardContent className="py-12">
-            <p className="text-center text-muted-foreground">Patient not found</p>
+            <p className="text-center text-muted-foreground">Paziente non trovato</p>
           </CardContent>
         </Card>
       </div>
@@ -72,7 +72,7 @@ export function PatientDetailPage() {
       <div className="flex items-center gap-4">
         <Button variant="ghost" onClick={() => navigate('/admin/patients')}>
           <ArrowLeft size={20} className="mr-2" />
-          Back
+          Indietro
         </Button>
       </div>
 
@@ -84,7 +84,7 @@ export function PatientDetailPage() {
           <div className="flex gap-3 mt-2">
             <Badge variant="outline">{patient.gender}</Badge>
             {patient.dateOfBirth && (
-              <Badge variant="outline">{calculateAge(patient.dateOfBirth)} years old</Badge>
+              <Badge variant="outline">{calculateAge(patient.dateOfBirth)} anni</Badge>
             )}
           </div>
         </div>
@@ -93,29 +93,29 @@ export function PatientDetailPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Measurements</CardTitle>
+            <CardTitle className="text-sm font-medium">Misurazioni</CardTitle>
             <ChartLine size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{patientMeasurements.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Total recorded</p>
+            <p className="text-xs text-muted-foreground mt-1">Totali registrate</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Messages</CardTitle>
+            <CardTitle className="text-sm font-medium">Messaggi</CardTitle>
             <ChatCircleText size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{patientMessages.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Total exchanged</p>
+            <p className="text-xs text-muted-foreground mt-1">Totali scambiati</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Documents</CardTitle>
+            <CardTitle className="text-sm font-medium">Documenti</CardTitle>
             <Folder size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>

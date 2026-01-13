@@ -48,7 +48,7 @@ export function MeasurementsPage() {
 
   const handleAddMeasurement = () => {
     if (!selectedPatientId || !formData.date || !formData.weight) {
-      toast.error('Please select a patient and enter weight')
+      toast.error('Seleziona un paziente e inserisci il peso')
       return
     }
 
@@ -65,7 +65,7 @@ export function MeasurementsPage() {
     }
 
     setMeasurements((current) => [...(current || []), newMeasurement])
-    toast.success('Measurement added successfully')
+    toast.success('Misurazione aggiunta con successo')
     setDialogOpen(false)
     setFormData({
       date: new Date().toISOString().split('T')[0],
@@ -93,27 +93,27 @@ export function MeasurementsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Measurements</h1>
-          <p className="text-muted-foreground mt-2">Track patient body composition over time</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Misurazioni</h1>
+          <p className="text-muted-foreground mt-2">Monitora la composizione corporea dei pazienti nel tempo</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus size={20} />
-              Add Measurement
+              Aggiungi Misurazione
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Add New Measurement</DialogTitle>
-              <DialogDescription>Record patient body composition data</DialogDescription>
+              <DialogTitle>Aggiungi Nuova Misurazione</DialogTitle>
+              <DialogDescription>Registra i dati di composizione corporea del paziente</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="patient">Patient *</Label>
+                <Label htmlFor="patient">Paziente *</Label>
                 <Select value={selectedPatientId} onValueChange={setSelectedPatientId}>
                   <SelectTrigger id="patient">
-                    <SelectValue placeholder="Select a patient" />
+                    <SelectValue placeholder="Seleziona un paziente" />
                   </SelectTrigger>
                   <SelectContent>
                     {(patients || []).map((patient) => (
@@ -125,7 +125,7 @@ export function MeasurementsPage() {
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="date">Date *</Label>
+                <Label htmlFor="date">Data *</Label>
                 <Input
                   id="date"
                   type="date"
@@ -134,7 +134,7 @@ export function MeasurementsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="weight">Weight (kg) *</Label>
+                <Label htmlFor="weight">Peso (kg) *</Label>
                 <Input
                   id="weight"
                   type="number"
@@ -144,7 +144,7 @@ export function MeasurementsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="fatMass">Fat Mass (kg)</Label>
+                <Label htmlFor="fatMass">Massa Grassa (kg)</Label>
                 <Input
                   id="fatMass"
                   type="number"
@@ -154,7 +154,7 @@ export function MeasurementsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="leanMass">Lean Mass (kg)</Label>
+                <Label htmlFor="leanMass">Massa Magra (kg)</Label>
                 <Input
                   id="leanMass"
                   type="number"
@@ -164,7 +164,7 @@ export function MeasurementsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="waterPercentage">Water %</Label>
+                <Label htmlFor="waterPercentage">Acqua %</Label>
                 <Input
                   id="waterPercentage"
                   type="number"
@@ -174,7 +174,7 @@ export function MeasurementsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="notes">Notes</Label>
+                <Label htmlFor="notes">Note</Label>
                 <Input
                   id="notes"
                   value={formData.notes}
@@ -184,9 +184,9 @@ export function MeasurementsPage() {
             </div>
             <div className="flex justify-end gap-3">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
+                Annulla
               </Button>
-              <Button onClick={handleAddMeasurement}>Add Measurement</Button>
+              <Button onClick={handleAddMeasurement}>Aggiungi Misurazione</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -216,30 +216,30 @@ export function MeasurementsPage() {
                     >
                       <div className="flex-1 grid grid-cols-5 gap-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">Date</p>
+                          <p className="text-sm text-muted-foreground">Data</p>
                           <p className="font-medium">
-                            {new Date(measurement.date).toLocaleDateString()}
+                            {new Date(measurement.date).toLocaleDateString('it-IT')}
                           </p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Weight</p>
+                          <p className="text-sm text-muted-foreground">Peso</p>
                           <p className="font-medium font-mono">{measurement.weight} kg</p>
                         </div>
                         {measurement.fatMass && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Fat Mass</p>
+                            <p className="text-sm text-muted-foreground">Massa Grassa</p>
                             <p className="font-medium font-mono">{measurement.fatMass} kg</p>
                           </div>
                         )}
                         {measurement.leanMass && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Lean Mass</p>
+                            <p className="text-sm text-muted-foreground">Massa Magra</p>
                             <p className="font-medium font-mono">{measurement.leanMass} kg</p>
                           </div>
                         )}
                         {measurement.waterPercentage && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Water</p>
+                            <p className="text-sm text-muted-foreground">Acqua</p>
                             <p className="font-medium font-mono">{measurement.waterPercentage}%</p>
                           </div>
                         )}
@@ -256,7 +256,7 @@ export function MeasurementsPage() {
           <Card>
             <CardContent className="py-12">
               <p className="text-center text-muted-foreground">
-                No measurements recorded yet. Add your first measurement to get started.
+                Nessuna misurazione registrata ancora. Aggiungi la tua prima misurazione per iniziare.
               </p>
             </CardContent>
           </Card>

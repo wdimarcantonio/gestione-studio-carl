@@ -37,7 +37,7 @@ export function PatientDashboard() {
   const weightTrend = weightChange > 0 ? 'up' : weightChange < 0 ? 'down' : 'stable'
 
   const chartData = myMeasurements.map((m) => ({
-    date: new Date(m.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: new Date(m.date).toLocaleDateString('it-IT', { month: 'short', day: 'numeric' }),
     weight: m.weight,
     fatMass: m.fatMass || 0,
     leanMass: m.leanMass || 0,
@@ -47,16 +47,16 @@ export function PatientDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-semibold tracking-tight">
-          Welcome back{myPatient ? `, ${myPatient.firstName}` : ''}!
+          Bentornat{myPatient && myPatient.gender === 'F' ? 'a' : 'o'}{myPatient ? `, ${myPatient.firstName}` : ''}!
         </h1>
-        <p className="text-muted-foreground mt-2">Here's your health journey overview</p>
+        <p className="text-muted-foreground mt-2">Ecco una panoramica del tuo percorso di salute</p>
       </div>
 
       {!myPatient && (
         <Card className="border-accent bg-accent/5">
           <CardContent className="py-6">
             <p className="text-sm">
-              Your patient profile is being set up. Please contact your dietitian for access.
+              Il tuo profilo paziente è in fase di configurazione. Contatta la tua dietista per l'accesso.
             </p>
           </CardContent>
         </Card>
@@ -65,40 +65,40 @@ export function PatientDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Measurements</CardTitle>
+            <CardTitle className="text-sm font-medium">Misurazioni</CardTitle>
             <ChartLine size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{myMeasurements.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Total recorded</p>
+            <p className="text-xs text-muted-foreground mt-1">Totali registrate</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Messages</CardTitle>
+            <CardTitle className="text-sm font-medium">Messaggi</CardTitle>
             <ChatCircleText size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{unreadMessages}</div>
-            <p className="text-xs text-muted-foreground mt-1">Unread messages</p>
+            <p className="text-xs text-muted-foreground mt-1">Non letti</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Documents</CardTitle>
+            <CardTitle className="text-sm font-medium">Documenti</CardTitle>
             <Folder size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{myDocuments.length}</div>
-            <p className="text-xs text-muted-foreground mt-1">Available to view</p>
+            <p className="text-xs text-muted-foreground mt-1">Disponibili</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Latest Weight</CardTitle>
+            <CardTitle className="text-sm font-medium">Ultimo Peso</CardTitle>
             <ChartLine size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -122,14 +122,14 @@ export function PatientDashboard() {
                   </>
                 )}
                 {weightTrend === 'stable' && (
-                  <p className="text-xs text-muted-foreground">No change</p>
+                  <p className="text-xs text-muted-foreground">Nessun cambiamento</p>
                 )}
               </div>
             )}
             <p className="text-xs text-muted-foreground mt-1">
               {myMeasurements.length > 0
-                ? new Date(myMeasurements[myMeasurements.length - 1].date).toLocaleDateString()
-                : 'No data'}
+                ? new Date(myMeasurements[myMeasurements.length - 1].date).toLocaleDateString('it-IT')
+                : 'Nessun dato'}
             </p>
           </CardContent>
         </Card>
@@ -138,7 +138,7 @@ export function PatientDashboard() {
       {myMeasurements.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>Weight Progress</CardTitle>
+            <CardTitle>Progressi Peso</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -159,7 +159,7 @@ export function PatientDashboard() {
                   dataKey="weight"
                   stroke="oklch(0.50 0.12 200)"
                   strokeWidth={2}
-                  name="Weight (kg)"
+                  name="Peso (kg)"
                   dot={{ fill: 'oklch(0.50 0.12 200)' }}
                 />
                 {chartData.some((d) => d.fatMass > 0) && (
@@ -168,7 +168,7 @@ export function PatientDashboard() {
                     dataKey="fatMass"
                     stroke="oklch(0.68 0.18 25)"
                     strokeWidth={2}
-                    name="Fat Mass (kg)"
+                    name="Massa Grassa (kg)"
                     dot={{ fill: 'oklch(0.68 0.18 25)' }}
                   />
                 )}
@@ -178,7 +178,7 @@ export function PatientDashboard() {
                     dataKey="leanMass"
                     stroke="oklch(0.70 0.08 220)"
                     strokeWidth={2}
-                    name="Lean Mass (kg)"
+                    name="Massa Magra (kg)"
                     dot={{ fill: 'oklch(0.70 0.08 220)' }}
                   />
                 )}
@@ -192,7 +192,7 @@ export function PatientDashboard() {
         <Card>
           <CardContent className="py-12">
             <p className="text-center text-muted-foreground">
-              No measurements recorded yet. Your dietitian will add your first measurement soon.
+              Nessuna misurazione registrata ancora. La tua dietista aggiungerà presto la prima misurazione.
             </p>
           </CardContent>
         </Card>

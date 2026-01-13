@@ -36,17 +36,17 @@ export function Layout({ children }: LayoutProps) {
   const isAdmin = user?.role === 'ADMIN'
 
   const adminNav = [
-    { path: '/admin', label: 'Dashboard', icon: House },
-    { path: '/admin/patients', label: 'Patients', icon: UsersThree },
-    { path: '/admin/measurements', label: 'Measurements', icon: ChartLine },
-    { path: '/admin/messages', label: 'Messages', icon: ChatCircleText },
-    { path: '/admin/documents', label: 'Documents', icon: Folder },
+    { path: '/admin', label: 'Pannello', icon: House },
+    { path: '/admin/patients', label: 'Pazienti', icon: UsersThree },
+    { path: '/admin/measurements', label: 'Misurazioni', icon: ChartLine },
+    { path: '/admin/messages', label: 'Messaggi', icon: ChatCircleText },
+    { path: '/admin/documents', label: 'Documenti', icon: Folder },
   ]
 
   const patientNav = [
-    { path: '/patient', label: 'Dashboard', icon: House },
-    { path: '/patient/messages', label: 'Messages', icon: ChatCircleText },
-    { path: '/patient/documents', label: 'Documents', icon: Folder },
+    { path: '/patient', label: 'Pannello', icon: House },
+    { path: '/patient/messages', label: 'Messaggi', icon: ChatCircleText },
+    { path: '/patient/documents', label: 'Documenti', icon: Folder },
   ]
 
   const navItems = isAdmin ? adminNav : patientNav
@@ -56,7 +56,7 @@ export function Layout({ children }: LayoutProps) {
       <div className="p-6 border-b border-border">
         <h1 className="text-2xl font-semibold text-primary">NutriTrack</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          {isAdmin ? 'Dietitian Portal' : 'Patient Portal'}
+          {isAdmin ? 'Portale Dietista' : 'Portale Paziente'}
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export function Layout({ children }: LayoutProps) {
           onClick={handleLogout}
         >
           <SignOut size={20} />
-          Sign Out
+          Esci
         </Button>
       </div>
     </>
@@ -132,7 +132,7 @@ export function Layout({ children }: LayoutProps) {
         {isAdmin && (
           <header className="border-b border-border bg-card px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <h2 className="text-lg font-semibold text-foreground">Working with:</h2>
+              <h2 className="text-lg font-semibold text-foreground">Lavora con:</h2>
               <PatientSelector />
             </div>
           </header>

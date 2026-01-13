@@ -33,12 +33,12 @@ export function PatientMessagesPage() {
 
   const handleSendMessage = () => {
     if (!messageBody.trim()) {
-      toast.error('Please enter a message')
+      toast.error('Inserisci un messaggio')
       return
     }
 
     if (!myPatient) {
-      toast.error('Patient profile not found')
+      toast.error('Profilo paziente non trovato')
       return
     }
 
@@ -48,7 +48,7 @@ export function PatientMessagesPage() {
       senderId: user!.id,
       senderName: `${myPatient.firstName} ${myPatient.lastName}`,
       recipientId: 'admin',
-      recipientName: 'Your Dietitian',
+      recipientName: 'La tua Dietista',
       channel: 'INTERNAL',
       direction: 'OUT',
       body: messageBody,
@@ -57,7 +57,7 @@ export function PatientMessagesPage() {
     }
 
     setMessages((current) => [...(current || []), newMessage])
-    toast.success('Message sent successfully')
+    toast.success('Messaggio inviato con successo')
     setDialogOpen(false)
     setMessageBody('')
   }
@@ -77,34 +77,34 @@ export function PatientMessagesPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Messages</h1>
-          <p className="text-muted-foreground mt-2">Communicate with your dietitian</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Messaggi</h1>
+          <p className="text-muted-foreground mt-2">Comunica con la tua dietista</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus size={20} />
-              New Message
+              Nuovo Messaggio
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Send Message to Dietitian</DialogTitle>
-              <DialogDescription>Send an internal message to your dietitian</DialogDescription>
+              <DialogTitle>Invia Messaggio alla Dietista</DialogTitle>
+              <DialogDescription>Invia un messaggio interno alla tua dietista</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <Textarea
                 rows={5}
-                placeholder="Type your message here..."
+                placeholder="Scrivi il tuo messaggio qui..."
                 value={messageBody}
                 onChange={(e) => setMessageBody(e.target.value)}
               />
             </div>
             <div className="flex justify-end gap-3">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
+                Annulla
               </Button>
-              <Button onClick={handleSendMessage}>Send Message</Button>
+              <Button onClick={handleSendMessage}>Invia Messaggio</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -112,10 +112,10 @@ export function PatientMessagesPage() {
 
       <Tabs value={activeChannel} onValueChange={(v) => setActiveChannel(v as MessageChannel | 'ALL')}>
         <TabsList>
-          <TabsTrigger value="ALL">All Messages</TabsTrigger>
+          <TabsTrigger value="ALL">Tutti i Messaggi</TabsTrigger>
           <TabsTrigger value="INTERNAL" className="gap-2">
             <ChatCircle size={16} />
-            Internal
+            Interni
           </TabsTrigger>
           <TabsTrigger value="EMAIL" className="gap-2">
             <Envelope size={16} />
@@ -130,13 +130,13 @@ export function PatientMessagesPage() {
         <TabsContent value={activeChannel} className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Message History ({myMessages.length})</CardTitle>
+              <CardTitle>Cronologia Messaggi ({myMessages.length})</CardTitle>
             </CardHeader>
             <CardContent>
               {myMessages.length === 0 ? (
                 <div className="text-center py-12">
                   <p className="text-muted-foreground">
-                    No messages yet. Send your first message to your dietitian!
+                    Nessun messaggio ancora. Invia il tuo primo messaggio alla tua dietista!
                   </p>
                 </div>
               ) : (

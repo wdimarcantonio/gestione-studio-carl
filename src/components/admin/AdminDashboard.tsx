@@ -31,7 +31,7 @@ export function AdminDashboard() {
   })
 
   const measurementsChartData = last7Days.map((date) => ({
-    date: new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    date: new Date(date).toLocaleDateString('it-IT', { month: 'short', day: 'numeric' }),
     count: (measurements || []).filter((m) => m.date === date).length,
   }))
 
@@ -59,52 +59,52 @@ export function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground mt-2">Welcome back! Here's your practice overview.</p>
+        <h1 className="text-3xl font-semibold tracking-tight">Pannello</h1>
+        <p className="text-muted-foreground mt-2">Bentornata! Ecco una panoramica del tuo studio.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Patients</CardTitle>
+            <CardTitle className="text-sm font-medium">Pazienti Totali</CardTitle>
             <UsersThree size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{patients?.length || 0}</div>
-            <p className="text-xs text-muted-foreground mt-1">Active in system</p>
+            <p className="text-xs text-muted-foreground mt-1">Attivi nel sistema</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Today's Measurements</CardTitle>
+            <CardTitle className="text-sm font-medium">Misurazioni di Oggi</CardTitle>
             <ChartLine size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{todayMeasurements}</div>
-            <p className="text-xs text-muted-foreground mt-1">Logged today</p>
+            <p className="text-xs text-muted-foreground mt-1">Registrate oggi</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Unread Messages</CardTitle>
+            <CardTitle className="text-sm font-medium">Messaggi Non Letti</CardTitle>
             <ChatCircleText size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{unreadMessages}</div>
-            <p className="text-xs text-muted-foreground mt-1">Awaiting response</p>
+            <p className="text-xs text-muted-foreground mt-1">In attesa di risposta</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">This Week</CardTitle>
+            <CardTitle className="text-sm font-medium">Questa Settimana</CardTitle>
             <TrendUp size={20} className="text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-semibold font-mono">{thisWeekMeasurements}</div>
-            <p className="text-xs text-muted-foreground mt-1">Measurements logged</p>
+            <p className="text-xs text-muted-foreground mt-1">Misurazioni registrate</p>
           </CardContent>
         </Card>
       </div>
@@ -112,7 +112,7 @@ export function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Weekly Activity</CardTitle>
+            <CardTitle>Attività Settimanale</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
@@ -131,7 +131,7 @@ export function AdminDashboard() {
                   dataKey="count"
                   fill="oklch(0.50 0.12 200)"
                   radius={[8, 8, 0, 0]}
-                  name="Measurements"
+                  name="Misurazioni"
                 />
               </BarChart>
             </ResponsiveContainer>
@@ -140,14 +140,14 @@ export function AdminDashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Patient Activity (Last 7 Days)</CardTitle>
-            <Badge variant="outline">{patientsWithRecentActivity} active</Badge>
+            <CardTitle>Attività Pazienti (Ultimi 7 Giorni)</CardTitle>
+            <Badge variant="outline">{patientsWithRecentActivity} attivi</Badge>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Active Patients</span>
+                  <span className="text-sm font-medium">Pazienti Attivi</span>
                   <span className="text-sm text-muted-foreground">
                     {patientsWithRecentActivity} / {patients?.length || 0}
                   </span>
@@ -168,15 +168,15 @@ export function AdminDashboard() {
               
               <div className="pt-4 space-y-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Total Patients</span>
+                  <span className="text-muted-foreground">Pazienti Totali</span>
                   <span className="font-medium font-mono">{patients?.length || 0}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Total Measurements</span>
+                  <span className="text-muted-foreground">Misurazioni Totali</span>
                   <span className="font-medium font-mono">{measurements?.length || 0}</span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Total Messages</span>
+                  <span className="text-muted-foreground">Messaggi Totali</span>
                   <span className="font-medium font-mono">{messages?.length || 0}</span>
                 </div>
               </div>
@@ -187,11 +187,11 @@ export function AdminDashboard() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent Patients</CardTitle>
+          <CardTitle>Pazienti Recenti</CardTitle>
         </CardHeader>
         <CardContent>
           {recentPatients.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No patients yet. Add your first patient to get started.</p>
+            <p className="text-sm text-muted-foreground">Nessun paziente ancora. Aggiungi il tuo primo paziente per iniziare.</p>
           ) : (
             <div className="space-y-3">
               {recentPatients.map((patient) => (

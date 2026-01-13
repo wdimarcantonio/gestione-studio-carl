@@ -47,7 +47,7 @@ export function PatientsPage() {
 
   const handleAddPatient = () => {
     if (!formData.firstName || !formData.lastName || !formData.email) {
-      toast.error('Please fill in all required fields')
+      toast.error('Compila tutti i campi obbligatori')
       return
     }
 
@@ -59,7 +59,7 @@ export function PatientsPage() {
     }
 
     setPatients((current) => [...(current || []), newPatient])
-    toast.success('Patient added successfully')
+    toast.success('Paziente aggiunto con successo')
     setDialogOpen(false)
     setFormData({
       firstName: '',
@@ -88,24 +88,24 @@ export function PatientsPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Patients</h1>
-          <p className="text-muted-foreground mt-2">Manage your patient registry</p>
+          <h1 className="text-3xl font-semibold tracking-tight">Pazienti</h1>
+          <p className="text-muted-foreground mt-2">Gestisci l'anagrafica pazienti</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus size={20} />
-              Add Patient
+              Aggiungi Paziente
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Add New Patient</DialogTitle>
-              <DialogDescription>Enter patient information below</DialogDescription>
+              <DialogTitle>Aggiungi Nuovo Paziente</DialogTitle>
+              <DialogDescription>Inserisci i dati del paziente</DialogDescription>
             </DialogHeader>
             <div className="grid grid-cols-2 gap-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name *</Label>
+                <Label htmlFor="firstName">Nome *</Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}
@@ -113,7 +113,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name *</Label>
+                <Label htmlFor="lastName">Cognome *</Label>
                 <Input
                   id="lastName"
                   value={formData.lastName}
@@ -130,7 +130,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
+                <Label htmlFor="phone">Telefono</Label>
                 <Input
                   id="phone"
                   value={formData.phone}
@@ -138,7 +138,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                <Label htmlFor="dateOfBirth">Data di Nascita</Label>
                 <Input
                   id="dateOfBirth"
                   type="date"
@@ -147,7 +147,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="gender">Gender</Label>
+                <Label htmlFor="gender">Sesso</Label>
                 <Select
                   value={formData.gender}
                   onValueChange={(value: 'M' | 'F' | 'OTHER') =>
@@ -158,14 +158,14 @@ export function PatientsPage() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="M">Male</SelectItem>
-                    <SelectItem value="F">Female</SelectItem>
-                    <SelectItem value="OTHER">Other</SelectItem>
+                    <SelectItem value="M">Maschio</SelectItem>
+                    <SelectItem value="F">Femmina</SelectItem>
+                    <SelectItem value="OTHER">Altro</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2 col-span-2">
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="address">Indirizzo</Label>
                 <Input
                   id="address"
                   value={formData.address}
@@ -173,7 +173,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="city">City</Label>
+                <Label htmlFor="city">Città</Label>
                 <Input
                   id="city"
                   value={formData.city}
@@ -181,7 +181,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="postalCode">Postal Code</Label>
+                <Label htmlFor="postalCode">CAP</Label>
                 <Input
                   id="postalCode"
                   value={formData.postalCode}
@@ -189,7 +189,7 @@ export function PatientsPage() {
                 />
               </div>
               <div className="space-y-2 col-span-2">
-                <Label htmlFor="notes">Notes</Label>
+                <Label htmlFor="notes">Note</Label>
                 <Input
                   id="notes"
                   value={formData.notes}
@@ -199,9 +199,9 @@ export function PatientsPage() {
             </div>
             <div className="flex justify-end gap-3">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                Cancel
+                Annulla
               </Button>
-              <Button onClick={handleAddPatient}>Add Patient</Button>
+              <Button onClick={handleAddPatient}>Aggiungi Paziente</Button>
             </div>
           </DialogContent>
         </Dialog>
@@ -214,7 +214,7 @@ export function PatientsPage() {
             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <Input
-            placeholder="Search patients..."
+            placeholder="Cerca pazienti..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
@@ -224,13 +224,13 @@ export function PatientsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Patient Registry ({filteredPatients.length})</CardTitle>
+          <CardTitle>Anagrafica Pazienti ({filteredPatients.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {filteredPatients.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-muted-foreground">
-                {searchQuery ? 'No patients match your search' : 'No patients yet'}
+                {searchQuery ? 'Nessun paziente corrisponde alla ricerca' : 'Nessun paziente ancora'}
               </p>
             </div>
           ) : (
@@ -249,7 +249,7 @@ export function PatientsPage() {
                       <span>{patient.email}</span>
                       {patient.phone && <span>{patient.phone}</span>}
                       {patient.dateOfBirth && (
-                        <span>Born: {new Date(patient.dateOfBirth).toLocaleDateString()}</span>
+                        <span>Nato il: {new Date(patient.dateOfBirth).toLocaleDateString('it-IT')}</span>
                       )}
                     </div>
                   </div>
@@ -263,7 +263,7 @@ export function PatientsPage() {
                     }}
                   >
                     <Eye size={18} />
-                    View Details
+                    Visualizza Dettagli
                   </Button>
                 </div>
               ))}

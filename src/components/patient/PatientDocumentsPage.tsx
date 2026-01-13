@@ -39,15 +39,15 @@ export function PatientDocumentsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Documents</h1>
-        <p className="text-muted-foreground mt-2">Access your diet plans and medical documents</p>
+        <h1 className="text-3xl font-semibold tracking-tight">Documenti</h1>
+        <p className="text-muted-foreground mt-2">Accedi ai tuoi piani alimentari e documenti medici</p>
       </div>
 
       {myDocuments.length === 0 ? (
         <Card>
           <CardContent className="py-12">
             <p className="text-center text-muted-foreground">
-              No documents available yet. Your dietitian will share documents with you here.
+              Nessun documento disponibile ancora. La tua dietista condividerà qui i documenti con te.
             </p>
           </CardContent>
         </Card>
@@ -72,7 +72,7 @@ export function PatientDocumentsPage() {
                           <div className="flex gap-3 mt-1 text-sm text-muted-foreground">
                             <span>{(doc.size / 1024).toFixed(0)} KB</span>
                             <span>
-                              Uploaded {new Date(doc.uploadDate).toLocaleDateString()}
+                              Caricato il {new Date(doc.uploadDate).toLocaleDateString('it-IT')}
                             </span>
                           </div>
                           {doc.description && (
@@ -87,7 +87,7 @@ export function PatientDocumentsPage() {
                         onClick={() => handleDownload(doc)}
                       >
                         <Download size={16} />
-                        Download
+                        Scarica
                       </Button>
                     </div>
                   ))}
