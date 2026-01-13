@@ -6,12 +6,15 @@ interface PatientContextType {
   selectedPatient: Patient | null
   setSelectedPatient: (patient: Patient | null) => void
   clearSelectedPatient: () => void
+  patients: Patient[]
+  setPatients: (patients: Patient[] | ((prev: Patient[]) => Patient[])) => void
 }
 
 const PatientContext = createContext<PatientContextType | undefined>(undefined)
 
 export function PatientProvider({ children }: { children: ReactNode }) {
   const [selectedPatient, setSelectedPatient] = useKV<Patient | null>('selected-patient', null)
+  const [patients, setPatients] = useKV<Patient[]>('patients', [])
 
   const clearSelectedPatient = () => {
     setSelectedPatient(null)
@@ -23,6 +26,8 @@ export function PatientProvider({ children }: { children: ReactNode }) {
         selectedPatient: selectedPatient ?? null,
         setSelectedPatient,
         clearSelectedPatient,
+        patients: patients ?? [],
+        setPatients,
       }}
     >
       {children}
@@ -36,4 +41,15 @@ export function useSelectedPatient() {
     throw new Error('useSelectedPatient must be used within a PatientProvider')
   }
   return context
+}
+
+export function usePatients() {
+  const context = useContext(PatientContext)
+  if (context === undefined) {
+    throw new Error('usePatients must be used within a PatientProvider')
+  }
+  return {
+    patients: context.patients,
+    setPatients: context.setPatients,
+  }
 }

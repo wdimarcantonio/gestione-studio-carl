@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Patient, Measurement, Message } from '@/lib/types'
+import { Message } from '@/lib/types'
+import { usePatients } from '@/lib/patient-context'
+import { useMeasurements } from '@/lib/measurements-context'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { UsersThree, ChartLine, ChatCircleText, CalendarBlank, TrendUp } from '@phosphor-icons/react'
@@ -16,8 +18,8 @@ import {
 import { DashboardSkeleton } from '@/components/skeletons/DashboardSkeleton'
 
 export function AdminDashboard() {
-  const [patients] = useKV<Patient[]>('patients', [])
-  const [measurements] = useKV<Measurement[]>('measurements', [])
+  const { patients } = usePatients()
+  const { measurements } = useMeasurements()
   const [messages] = useKV<Message[]>('messages', [])
   const [isLoading, setIsLoading] = useState(true)
 

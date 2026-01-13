@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useKV } from '@github/spark/hooks'
-import { Patient, Measurement, Message, Document } from '@/lib/types'
+import { Message, Document } from '@/lib/types'
+import { usePatients } from '@/lib/patient-context'
+import { useMeasurements } from '@/lib/measurements-context'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -22,8 +24,8 @@ import { PatientDetailSkeleton } from '@/components/skeletons/PatientDetailSkele
 export function PatientDetailPage() {
   const { patientId } = useParams<{ patientId: string }>()
   const navigate = useNavigate()
-  const [patients] = useKV<Patient[]>('patients', [])
-  const [measurements] = useKV<Measurement[]>('measurements', [])
+  const { patients } = usePatients()
+  const { measurements } = useMeasurements()
   const [messages] = useKV<Message[]>('messages', [])
   const [documents] = useKV<Document[]>('documents', [])
   const [isLoading, setIsLoading] = useState(true)

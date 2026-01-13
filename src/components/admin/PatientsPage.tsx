@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useKV } from '@github/spark/hooks'
+import { usePatients } from '@/lib/patient-context'
 import { Patient } from '@/lib/types'
 import { useAuth } from '@/lib/auth-context'
 import { Button } from '@/components/ui/button'
@@ -27,7 +27,7 @@ import { toast } from 'sonner'
 import { PatientListSkeleton } from '@/components/skeletons/PatientListSkeleton'
 
 export function PatientsPage() {
-  const [patients, setPatients] = useKV<Patient[]>('patients', [])
+  const { patients, setPatients } = usePatients()
   const { user } = useAuth()
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')

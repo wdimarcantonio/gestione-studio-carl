@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/lib/auth-context'
 import { PatientProvider } from '@/lib/patient-context'
+import { MeasurementsProvider } from '@/lib/measurements-context'
 import { Toaster } from '@/components/ui/sonner'
 import { LoginPage } from '@/components/auth/LoginPage'
 import { Layout } from '@/components/layout/Layout'
@@ -34,103 +35,105 @@ function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AuthProvider>
         <PatientProvider>
-          <Routes>
-            <Route path="/" element={<RootRedirect />} />
-            <Route path="/login" element={<LoginPage />} />
-          
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <AdminDashboard />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/patients"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <PatientsPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/patients/:patientId"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <PatientDetailPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/measurements"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <MeasurementsPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/messages"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <AdminMessagesPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/documents"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <Layout>
-                  <AdminDocumentsPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          
-          <Route
-            path="/patient"
-            element={
-              <ProtectedRoute allowedRoles={['PATIENT']}>
-                <Layout>
-                  <PatientDashboard />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/patient/messages"
-            element={
-              <ProtectedRoute allowedRoles={['PATIENT']}>
-                <Layout>
-                  <PatientMessagesPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/patient/documents"
-            element={
-              <ProtectedRoute allowedRoles={['PATIENT']}>
-                <Layout>
-                  <PatientDocumentsPage />
-                </Layout>
-              </ProtectedRoute>
-            }
-          />
-          </Routes>
-          <Toaster />
+          <MeasurementsProvider>
+            <Routes>
+              <Route path="/" element={<RootRedirect />} />
+              <Route path="/login" element={<LoginPage />} />
+              
+              <Route
+                path="/admin"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <AdminDashboard />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/patients"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <PatientsPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/patients/:patientId"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <PatientDetailPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/measurements"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <MeasurementsPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/messages"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <AdminMessagesPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/admin/documents"
+                element={
+                  <ProtectedRoute allowedRoles={['ADMIN']}>
+                    <Layout>
+                      <AdminDocumentsPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              
+              <Route
+                path="/patient"
+                element={
+                  <ProtectedRoute allowedRoles={['PATIENT']}>
+                    <Layout>
+                      <PatientDashboard />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/patient/messages"
+                element={
+                  <ProtectedRoute allowedRoles={['PATIENT']}>
+                    <Layout>
+                      <PatientMessagesPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/patient/documents"
+                element={
+                  <ProtectedRoute allowedRoles={['PATIENT']}>
+                    <Layout>
+                      <PatientDocumentsPage />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+            <Toaster />
+          </MeasurementsProvider>
         </PatientProvider>
       </AuthProvider>
     </BrowserRouter>

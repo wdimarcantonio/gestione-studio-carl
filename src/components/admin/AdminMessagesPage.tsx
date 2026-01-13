@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Patient, Message, MessageChannel } from '@/lib/types'
+import { Message, MessageChannel } from '@/lib/types'
 import { useAuth } from '@/lib/auth-context'
-import { useSelectedPatient } from '@/lib/patient-context'
+import { useSelectedPatient, usePatients } from '@/lib/patient-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -29,7 +29,7 @@ import { toast } from 'sonner'
 import { MessagesSkeleton } from '@/components/skeletons/MessagesSkeleton'
 
 export function AdminMessagesPage() {
-  const [patients] = useKV<Patient[]>('patients', [])
+  const { patients } = usePatients()
   const [messages, setMessages] = useKV<Message[]>('messages', [])
   const { user } = useAuth()
   const { selectedPatient } = useSelectedPatient()

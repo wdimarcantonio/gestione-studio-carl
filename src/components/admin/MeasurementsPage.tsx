@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Patient, Measurement } from '@/lib/types'
-import { useSelectedPatient } from '@/lib/patient-context'
+import { Measurement } from '@/lib/types'
+import { useSelectedPatient, usePatients } from '@/lib/patient-context'
+import { useMeasurements } from '@/lib/measurements-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,8 +27,8 @@ import { toast } from 'sonner'
 import { MeasurementsSkeleton } from '@/components/skeletons/MeasurementsSkeleton'
 
 export function MeasurementsPage() {
-  const [patients] = useKV<Patient[]>('patients', [])
-  const [measurements, setMeasurements] = useKV<Measurement[]>('measurements', [])
+  const { patients } = usePatients()
+  const { measurements, setMeasurements } = useMeasurements()
   const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedPatientId, setSelectedPatientId] = useState('')

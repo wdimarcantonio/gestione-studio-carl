@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
-import { Patient, Document } from '@/lib/types'
-import { useSelectedPatient } from '@/lib/patient-context'
+import { Document } from '@/lib/types'
+import { useSelectedPatient, usePatients } from '@/lib/patient-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,7 +26,7 @@ import { toast } from 'sonner'
 import { DocumentsSkeleton } from '@/components/skeletons/DocumentsSkeleton'
 
 export function AdminDocumentsPage() {
-  const [patients] = useKV<Patient[]>('patients', [])
+  const { patients } = usePatients()
   const [documents, setDocuments] = useKV<Document[]>('documents', [])
   const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)

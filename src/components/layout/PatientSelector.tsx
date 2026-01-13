@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { useSelectedPatient } from '@/lib/patient-context'
-import { useKV } from '@github/spark/hooks'
+import { useSelectedPatient, usePatients } from '@/lib/patient-context'
 import { Patient } from '@/lib/types'
 import {
   Select,
@@ -19,7 +18,7 @@ interface PatientSelectorProps {
 
 export function PatientSelector({ className }: PatientSelectorProps) {
   const { selectedPatient, setSelectedPatient, clearSelectedPatient } = useSelectedPatient()
-  const [patients] = useKV<Patient[]>('patients', [])
+  const { patients } = usePatients()
 
   const patientsList = patients || []
 
