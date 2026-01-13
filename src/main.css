@@ -80,11 +80,63 @@
 
 body {
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}
 
+.text-gradient {
+  background: linear-gradient(135deg, oklch(0.50 0.12 200), oklch(0.68 0.18 25));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -10px oklch(0.50 0.12 200 / 0.15);
+}
+
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, oklch(0.50 0.12 200 / 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.chart-tooltip {
+  background-color: oklch(1 0 0) !important;
+  border: 1px solid oklch(0.90 0 0) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px oklch(0 0 0 / 0.1) !important;
+}
 
 
 
