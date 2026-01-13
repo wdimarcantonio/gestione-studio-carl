@@ -31,3 +31,4 @@ pids
 .devcontainer/
 
 .spark-workbench-id
+node_modules
