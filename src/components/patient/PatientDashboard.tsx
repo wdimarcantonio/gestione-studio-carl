@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { useAuth } from '@/lib/auth-context'
 import { Patient, Measurement, Message, Document } from '@/lib/types'
@@ -14,6 +15,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
+import { DashboardSkeleton } from '@/components/skeletons/DashboardSkeleton'
 
 export function PatientDashboard() {
   const { user } = useAuth()
@@ -21,6 +23,14 @@ export function PatientDashboard() {
   const [measurements] = useKV<Measurement[]>('measurements', [])
   const [messages] = useKV<Message[]>('messages', [])
   const [documents] = useKV<Document[]>('documents', [])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const myPatient = (patients || []).find((p) => p.email === user?.email)
   const myMeasurements = (measurements || [])
@@ -42,6 +52,10 @@ export function PatientDashboard() {
     fatMass: m.fatMass || 0,
     leanMass: m.leanMass || 0,
   }))
+
+  if (isLoading) {
+    return <DashboardSkeleton />
+  }
 
   return (
     <div className="space-y-8">

@@ -1,14 +1,24 @@
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { useAuth } from '@/lib/auth-context'
 import { Patient, Document } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FilePdf, FileText, File, Download } from '@phosphor-icons/react'
+import { DocumentsSkeleton } from '@/components/skeletons/DocumentsSkeleton'
 
 export function PatientDocumentsPage() {
   const { user } = useAuth()
   const [patients] = useKV<Patient[]>('patients', [])
   const [documents] = useKV<Document[]>('documents', [])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   const myPatient = (patients || []).find((p) => p.email === user?.email)
   const myDocuments = (documents || [])
@@ -34,6 +44,10 @@ export function PatientDocumentsPage() {
     link.href = doc.dataUrl
     link.download = doc.name
     link.click()
+  }
+
+  if (isLoading) {
+    return <DocumentsSkeleton />
   }
 
   return (

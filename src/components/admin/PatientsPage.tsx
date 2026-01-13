@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useKV } from '@github/spark/hooks'
 import { Patient } from '@/lib/types'
@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/select'
 import { Plus, MagnifyingGlass, Eye } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { PatientListSkeleton } from '@/components/skeletons/PatientListSkeleton'
 
 export function PatientsPage() {
   const [patients, setPatients] = useKV<Patient[]>('patients', [])
@@ -31,6 +32,14 @@ export function PatientsPage() {
   const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 600)
+    return () => clearTimeout(timer)
+  }, [])
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -83,6 +92,10 @@ export function PatientsPage() {
       patient.email.toLowerCase().includes(query)
     )
   })
+
+  if (isLoading) {
+    return <PatientListSkeleton />
+  }
 
   return (
     <div className="space-y-8">

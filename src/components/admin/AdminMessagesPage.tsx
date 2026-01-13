@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/select'
 import { Plus, ChatCircle, Envelope, WhatsappLogo, MagnifyingGlass } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { MessagesSkeleton } from '@/components/skeletons/MessagesSkeleton'
 
 export function AdminMessagesPage() {
   const [patients] = useKV<Patient[]>('patients', [])
@@ -35,6 +36,14 @@ export function AdminMessagesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [activeChannel, setActiveChannel] = useState<MessageChannel | 'ALL'>('ALL')
   const [searchQuery, setSearchQuery] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   const [formData, setFormData] = useState({
     patientId: '',
@@ -108,6 +117,10 @@ export function AdminMessagesPage() {
       case 'WHATSAPP':
         return <WhatsappLogo size={16} />
     }
+  }
+
+  if (isLoading) {
+    return <MessagesSkeleton />
   }
 
   return (

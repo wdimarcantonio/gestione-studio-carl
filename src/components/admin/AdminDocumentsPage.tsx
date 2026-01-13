@@ -23,12 +23,21 @@ import {
 } from '@/components/ui/select'
 import { Plus, FilePdf, FileText, File, Download } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { DocumentsSkeleton } from '@/components/skeletons/DocumentsSkeleton'
 
 export function AdminDocumentsPage() {
   const [patients] = useKV<Patient[]>('patients', [])
   const [documents, setDocuments] = useKV<Document[]>('documents', [])
   const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   const [formData, setFormData] = useState({
     patientId: '',
@@ -107,6 +116,10 @@ export function AdminDocumentsPage() {
     link.href = doc.dataUrl
     link.download = doc.name
     link.click()
+  }
+
+  if (isLoading) {
+    return <DocumentsSkeleton />
   }
 
   return (

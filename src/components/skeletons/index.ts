@@ -1,0 +1,6 @@
+export { DashboardSkeleton } from './DashboardSkeleton'
+export { PatientListSkeleton } from './PatientListSkeleton'
+export { MessagesSkeleton } from './MessagesSkeleton'
+export { DocumentsSkeleton } from './DocumentsSkeleton'
+export { MeasurementsSkeleton } from './MeasurementsSkeleton'
+export { PatientDetailSkeleton } from './PatientDetailSkeleton'

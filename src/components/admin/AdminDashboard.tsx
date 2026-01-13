@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Patient, Measurement, Message } from '@/lib/types'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,11 +13,20 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+import { DashboardSkeleton } from '@/components/skeletons/DashboardSkeleton'
 
 export function AdminDashboard() {
   const [patients] = useKV<Patient[]>('patients', [])
   const [measurements] = useKV<Measurement[]>('measurements', [])
   const [messages] = useKV<Message[]>('messages', [])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const recentPatients = patients?.slice(-5).reverse() || []
   const todayMeasurements = measurements?.filter(
@@ -55,6 +65,10 @@ export function AdminDashboard() {
     
     return hasRecentMeasurement || hasRecentMessage
   }).length
+
+  if (isLoading) {
+    return <DashboardSkeleton />
+  }
 
   return (
     <div className="space-y-8">

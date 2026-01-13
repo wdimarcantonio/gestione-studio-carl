@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useKV } from '@github/spark/hooks'
 import { Patient, Measurement, Message, Document } from '@/lib/types'
@@ -16,6 +17,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from 'recharts'
+import { PatientDetailSkeleton } from '@/components/skeletons/PatientDetailSkeleton'
 
 export function PatientDetailPage() {
   const { patientId } = useParams<{ patientId: string }>()
@@ -24,6 +26,14 @@ export function PatientDetailPage() {
   const [measurements] = useKV<Measurement[]>('measurements', [])
   const [messages] = useKV<Message[]>('messages', [])
   const [documents] = useKV<Document[]>('documents', [])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   const patient = (patients || []).find((p) => p.id === patientId)
   const patientMeasurements = (measurements || [])
@@ -39,6 +49,10 @@ export function PatientDetailPage() {
     leanMass: m.leanMass || 0,
     waterPercentage: m.waterPercentage || 0,
   }))
+
+  if (isLoading) {
+    return <PatientDetailSkeleton />
+  }
 
   if (!patient) {
     return (

@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/select'
 import { Plus } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { MeasurementsSkeleton } from '@/components/skeletons/MeasurementsSkeleton'
 
 export function MeasurementsPage() {
   const [patients] = useKV<Patient[]>('patients', [])
@@ -30,6 +31,14 @@ export function MeasurementsPage() {
   const { selectedPatient } = useSelectedPatient()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedPatientId, setSelectedPatientId] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     if (selectedPatient) {
@@ -88,6 +97,10 @@ export function MeasurementsPage() {
   const patientsToShow = selectedPatient 
     ? (patients || []).filter(p => p.id === selectedPatient.id)
     : (patients || [])
+
+  if (isLoading) {
+    return <MeasurementsSkeleton />
+  }
 
   return (
     <div className="space-y-8">

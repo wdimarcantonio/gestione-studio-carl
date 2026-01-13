@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { useAuth } from '@/lib/auth-context'
 import { Patient, Message, MessageChannel } from '@/lib/types'
@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/dialog'
 import { Plus, ChatCircle, Envelope, WhatsappLogo } from '@phosphor-icons/react'
 import { toast } from 'sonner'
+import { MessagesSkeleton } from '@/components/skeletons/MessagesSkeleton'
 
 export function PatientMessagesPage() {
   const { user } = useAuth()
@@ -24,6 +25,14 @@ export function PatientMessagesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [activeChannel, setActiveChannel] = useState<MessageChannel | 'ALL'>('ALL')
   const [messageBody, setMessageBody] = useState('')
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 700)
+    return () => clearTimeout(timer)
+  }, [])
 
   const myPatient = (patients || []).find((p) => p.email === user?.email)
   const myMessages = (messages || [])
@@ -71,6 +80,10 @@ export function PatientMessagesPage() {
       case 'WHATSAPP':
         return <WhatsappLogo size={16} />
     }
+  }
+
+  if (isLoading) {
+    return <MessagesSkeleton />
   }
 
   return (
