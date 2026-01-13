@@ -8,7 +8,7 @@ interface ErrorFallbackProps {
 
 export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="max-w-md w-full space-y-4">
         <Alert variant="destructive">
           <AlertTitle>Something went wrong</AlertTitle>
@@ -23,3 +23,4 @@ export function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps)
     </div>
   )
 }
+
